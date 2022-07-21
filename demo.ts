@@ -4,20 +4,20 @@
 class LiveAnalyzer extends SemanticAstVisitor{ 
     
     /**
-     * 分析主程序是否正确的renturn了，如果没有，那么自动添加return语句
+     * 分析主程序是否正确的 renturn 了，如果没有，那么自动添加 return 语句
      * @param prog 
      */
     visitProg(prog:Prog):any{
         let alive = super.visitBlock(prog);
 
-        // 如果主程序没有return语句，那么在最后面加一下
+        // 如果主程序没有 return 语句，那么在最后面加一下
         if (alive){
             prog.stmts.push(new ReturnStatement(prog.endPos, prog.endPos, null));
         }
     }
 
     /**
-     * 检查每个函数是否都正确的return了，也就是 alive 是 false
+     * 检查每个函数是否都正确的 return 了，也就是 alive 是 false
      * @param functionDecl 
      */
     visitFunctionDecl(functionDecl:FunctionDecl):any{
